@@ -79,7 +79,7 @@ resource "azuread_service_principal_password" "service_principal_password" {
   for_each = local.service_principal_password
 
   service_principal_id = local.service_principal_password[each.key].service_principal_id
-  rotate_when_changed  = {
+  rotate_when_changed = {
     rotation = local.service_principal_password[each.key].rotation
   }
 }

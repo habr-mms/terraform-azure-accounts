@@ -5,47 +5,48 @@ variable "tags" {
 }
 # resource definition/configuration
 variable "key_vault_secret" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 variable "user" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 variable "group" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 variable "application" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 variable "application_password" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 variable "service_principal" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 variable "service_principal_password" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 variable "role_assignment" {
-  type    = any
+  type        = any
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
 
 locals {
+  default = {
     tags = {}
     # resource definition
     key_vault_secret = {
