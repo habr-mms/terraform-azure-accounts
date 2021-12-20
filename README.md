@@ -1,4 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
+
 # accounts
 
 This module manages Azure AD Resources and Permissions.
@@ -7,56 +8,56 @@ This module manages Azure AD Resources and Permissions.
 
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | ~>1.0 |
-| azuread | ~>2.5 |
-| azurerm | ~>2.19 |
+| Name      | Version |
+| --------- | ------- |
+| terraform | ~>1.0   |
+| azuread   | ~>2.5   |
+| azurerm   | ~>2.19  |
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| azuread | ~>2.5 |
-| azurerm | ~>2.19 |
+| Name    | Version |
+| ------- | ------- |
+| azuread | ~>2.5   |
+| azurerm | ~>2.19  |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| azuread_application.application | resource |
-| azuread_application_password.application_password | resource |
-| azuread_group.group | resource |
-| azuread_service_principal.service_principal | resource |
+| Name                                                          | Type     |
+| ------------------------------------------------------------- | -------- |
+| azuread_application.application                               | resource |
+| azuread_application_password.application_password             | resource |
+| azuread_group.group                                           | resource |
+| azuread_service_principal.service_principal                   | resource |
 | azuread_service_principal_password.service_principal_password | resource |
-| azuread_user.user | resource |
-| azurerm_key_vault_secret.key_vault_secret | resource |
-| azurerm_role_assignment.role_assignment | resource |
+| azuread_user.user                                             | resource |
+| azurerm_key_vault_secret.key_vault_secret                     | resource |
+| azurerm_role_assignment.role_assignment                       | resource |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| application | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| application_password | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| group | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| key_vault_secret | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| role_assignment | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| service_principal | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| service_principal_password | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| tags | mapping of tags to assign, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| user | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| Name                       | Description                                                                                        | Type  | Default | Required |
+| -------------------------- | -------------------------------------------------------------------------------------------------- | ----- | ------- | :------: |
+| application                | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| application_password       | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| group                      | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| key_vault_secret           | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| role_assignment            | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| service_principal          | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| service_principal_password | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| tags                       | mapping of tags to assign, default settings are defined within locals and merged with var settings | `any` | `{}`    |    no    |
+| user                       | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| application | azuread_application results |
-| application_password | azuread_application_password results |
-| group | azuread_group results |
-| service_principal | azuread_service_principal results |
+| Name                       | Description                                |
+| -------------------------- | ------------------------------------------ |
+| application                | azuread_application results                |
+| application_password       | azuread_application_password results       |
+| group                      | azuread_group results                      |
+| service_principal          | azuread_service_principal results          |
 | service_principal_password | azuread_service_principal_password results |
-| user | azuread_user results |
+| user                       | azuread_user results                       |
 
 ## Examples
 
@@ -109,4 +110,5 @@ module "accounts-role_assignment" {
   }
 }
 ```
+
 <!-- END_TF_DOCS -->
