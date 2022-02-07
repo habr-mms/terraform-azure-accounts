@@ -44,7 +44,6 @@ This module manages Azure AD Resources and Permissions.
 | role_assignment | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | service_principal | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | service_principal_password | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
-| tags | mapping of tags to assign, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | user | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 
 ## Outputs
