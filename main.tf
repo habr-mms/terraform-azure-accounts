@@ -13,7 +13,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret" {
   value        = local.key_vault_secret[each.key].value
   key_vault_id = local.key_vault_secret[each.key].key_vault_id
   content_type = local.key_vault_secret[each.key].content_type
-  tags = local.key_vault_secret[each.key].tags
+  tags         = local.key_vault_secret[each.key].tags
 }
 
 /** User */

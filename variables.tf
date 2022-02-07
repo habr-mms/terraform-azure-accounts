@@ -43,7 +43,7 @@ locals {
   default = {
     # resource definition
     key_vault_secret = {
-      name = ""
+      name         = ""
       content_type = ""
     }
     user = {
