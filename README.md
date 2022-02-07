@@ -1,5 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-
 # accounts
 
 This module manages Azure AD Resources and Permissions.
@@ -8,107 +7,99 @@ This module manages Azure AD Resources and Permissions.
 
 ## Requirements
 
-| Name      | Version |
-| --------- | ------- |
-| terraform | ~>1.0   |
-| azuread   | ~>2.5   |
-| azurerm   | ~>2.19  |
+| Name | Version |
+|------|---------|
+| terraform | ~>1.0 |
+| azuread | ~>2.5 |
+| azurerm | ~>2.19 |
 
 ## Providers
 
-| Name    | Version |
-| ------- | ------- |
-| azuread | ~>2.5   |
-| azurerm | ~>2.19  |
+| Name | Version |
+|------|---------|
+| azuread | ~>2.5 |
+| azurerm | ~>2.19 |
 
 ## Resources
 
-| Name                                                          | Type     |
-| ------------------------------------------------------------- | -------- |
-| azuread_application.application                               | resource |
-| azuread_application_password.application_password             | resource |
-| azuread_group.group                                           | resource |
-| azuread_service_principal.service_principal                   | resource |
+| Name | Type |
+|------|------|
+| azuread_application.application | resource |
+| azuread_application_password.application_password | resource |
+| azuread_group.group | resource |
+| azuread_service_principal.service_principal | resource |
 | azuread_service_principal_password.service_principal_password | resource |
-| azuread_user.user                                             | resource |
-| azurerm_key_vault_secret.key_vault_secret                     | resource |
-| azurerm_role_assignment.role_assignment                       | resource |
+| azuread_user.user | resource |
+| azurerm_key_vault_secret.key_vault_secret | resource |
+| azurerm_role_assignment.role_assignment | resource |
 
 ## Inputs
 
-| Name                       | Description                                                                                        | Type  | Default | Required |
-| -------------------------- | -------------------------------------------------------------------------------------------------- | ----- | ------- | :------: |
-| application                | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
-| application_password       | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
-| group                      | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
-| key_vault_secret           | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
-| role_assignment            | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
-| service_principal          | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
-| service_principal_password | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
-| tags                       | mapping of tags to assign, default settings are defined within locals and merged with var settings | `any` | `{}`    |    no    |
-| user                       | resource definition, default settings are defined within locals and merged with var settings       | `any` | `{}`    |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| application | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| application_password | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| group | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| key_vault_secret | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| role_assignment | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| service_principal | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| service_principal_password | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| tags | mapping of tags to assign, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| user | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 
 ## Outputs
 
-| Name                       | Description                                |
-| -------------------------- | ------------------------------------------ |
-| application                | azuread_application results                |
-| application_password       | azuread_application_password results       |
-| group                      | azuread_group results                      |
-| service_principal          | azuread_service_principal results          |
+| Name | Description |
+|------|-------------|
+| application | azuread_application results |
+| application_password | azuread_application_password results |
+| group | azuread_group results |
+| service_principal | azuread_service_principal results |
 | service_principal_password | azuread_service_principal_password results |
-| user                       | azuread_user results                       |
+| user | azuread_user results |
 
 ## Examples
 
 ```hcl
-module "accounts-key_vault_secret" {
-  source           = "../modules/azure/terraform-accounts"
-  key_vault_secret = {
-    "mysecret" = {
-      key_vault_id = data.azurerm_key_vault.key_vault.id
-      value        = module.accounts-service_principal_password.service_principal_password["mysecret"].value
-      content_type = "sp password"
-    }
-  }
-}
-
-module "accounts-application" {
-  source      = "../modules/azure/terraform-accounts"
+module "accounts" {
+  source = "../modules/azure/terraform-accounts"
   application = {
-    aks = {}
+    azuredevops = {
+      display_name = "azuredevops"
+      owners       = data.azuread_group.grp-admin.members
+    }
   }
-}
-
-module "accounts-service_principal" {
-  source            = "../modules/azure/terraform-accounts"
   service_principal = {
-    aks = {
-      application_id = module.accounts-application.application.aks.application_id
-      description    = "aks service-principal"
+    azuredevops = {
+      application_id = module.accounts.application.azuredevops.application_id
+      description    = format("service-principal for %s", "azuredevops")
+      owners         = data.azuread_group.grp-admin.members
     }
   }
-}
-module "accounts-service_principal_password" {
-  source                     = "../modules/azure/terraform-accounts"
   service_principal_password = {
-    aks = {
-      service_principal_id = module.accounts-service_principal.service_principal.aks.object_id
-      rotation             = time_rotating.rotating.aks.id
+    azuredevops = {
+      service_principal_id = module.accounts.service_principal.azuredevops.object_id
+      rotation             = time_rotating.rotating.service_principal.id
     }
   }
-}
-
-module "accounts-role_assignment" {
-  source          = "../modules/azure/terraform-accounts"
+  key_vault_secret = {
+    azuredevops = {
+      name         = "azuredevops"
+      key_vault_id = "service-mgmt-kv"
+      value        = module.accounts.service_principal_password.azuredevops.value
+      content_type = format("application %s", "azuredevops")
+      tags = {
+        service = "service_name"
+      }
+    }
+  }
   role_assignment = {
-    aks = {
-      scope                = data.azurerm_container_registry.container_registry.id
-      role_definition_name = "acrpull"
-      principal_id         = module.accounts-service_principal.service_principal.aks.object_id
+    azuredevops = {
+      scope                = data.azurerm_subscription.current.id
+      role_definition_name = "Contributor"
+      principal_id         = module.accounts.service_principal.azuredevops.object_id
     }
   }
 }
 ```
-
 <!-- END_TF_DOCS -->
