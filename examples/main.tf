@@ -1,32 +1,40 @@
 module "accounts" {
-  source = "../modules/azure/terraform-accounts"
+  source      = "../modules/azure/terraform-accounts"
   application = {
-    aks-app = {
+    azuredevops = {
+      display_name = "azuredevops"
       owners = data.azuread_group.grp-admin.members
     }
   }
   service_principal = {
-    /** service_principal for application */
-    aks-app = {
-      application_id = module.accounts.application.aks-app.application_id
-      description    = "service-principal for aks-app"
-      owners         = data.azuread_group.grp-admin.members
+    azuredevops = {
+      application_id = module.accounts.application.azuredevops.application_id
+      description    = format("service-principal for %s", "azuredevops")
+      owners = data.azuread_group.grp-admin.members
     }
   }
   service_principal_password = {
-    aks-app = {
-      service_principal_id = module.accounts.service_principal.aks-app.object_id
-      rotation             = time_rotating.rotating["service_principal"].id
+    azuredevops = {
+      service_principal_id = module.accounts.service_principal.azuredevops.object_id
+      rotation             = time_rotating.rotating.service_principal.id
     }
   }
   key_vault_secret = {
-    aks-app = {
-      key_vault_id = data.azurerm_key_vault.key_vault_environment.id
-      value        = module.accounts.service_principal_password.aks-app.value
-      content_type = local.service_principal.aks-app.description
+    azuredevops = {
+      name = "azuredevops"
+      key_vault_id = "service-mgmt-kv"
+      value        = module.accounts.service_principal_password.azuredevops.value
+      content_type = format("application %s", "azuredevops")
+      tags         = {
+        service = "service_name"
+      }
     }
   }
-  tags = {
-    service = "service_name"
+  role_assignment = {
+    azuredevops = {
+      scope                = data.azurerm_subscription.current.id
+      role_definition_name = "Contributor"
+      principal_id         = module.accounts.service_principal.azuredevops.object_id
+    }
   }
 }
