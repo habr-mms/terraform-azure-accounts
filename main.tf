@@ -7,27 +7,23 @@
 
 /** KeyVault Secret */
 resource "azurerm_key_vault_secret" "key_vault_secret" {
-  for_each = local.key_vault_secret
+  for_each = var.key_vault_secret
 
-  name         = each.key
+  name         = local.key_vault_secret[each.key].name == "" ? each.key : local.key_vault_secret[each.key].name
   value        = local.key_vault_secret[each.key].value
   key_vault_id = local.key_vault_secret[each.key].key_vault_id
   content_type = local.key_vault_secret[each.key].content_type
-
-  tags = {
-    for tag in keys(local.tags) :
-    tag => local.tags[tag]
-  }
+  tags         = local.key_vault_secret[each.key].tags
 }
 
 /** User */
 resource "azuread_user" "user" {
-  for_each = local.user
+  for_each = var.user
 
   user_principal_name   = local.user[each.key].user_principal_name
   display_name          = local.user[each.key].display_name
   account_enabled       = local.user[each.key].account_enabled
-  mail_nickname         = each.key
+  mail_nickname         = local.user[each.key].mail_nickname
   password              = local.user[each.key].password
   force_password_change = local.user[each.key].force_password_change
   show_in_address_list  = local.user[each.key].show_in_address_list
@@ -35,9 +31,9 @@ resource "azuread_user" "user" {
 
 /** Group */
 resource "azuread_group" "group" {
-  for_each = local.group
+  for_each = var.group
 
-  display_name            = each.key
+  display_name            = local.group[each.key].display_name
   description             = local.group[each.key].description
   assignable_to_role      = local.group[each.key].assignable_to_role
   members                 = local.group[each.key].members
@@ -49,15 +45,15 @@ resource "azuread_group" "group" {
 
 /** App Registration */
 resource "azuread_application" "application" {
-  for_each = local.application
+  for_each = var.application
 
-  display_name            = each.key
+  display_name            = local.application[each.key].display_name
   owners                  = local.application[each.key].owners
   prevent_duplicate_names = local.application[each.key].prevent_duplicate_names
 }
 /** Application Password */
 resource "azuread_application_password" "application_password" {
-  for_each = local.application_password
+  for_each = var.application_password
 
   application_object_id = local.application_password[each.key].application_object_id
   display_name          = local.application_password[each.key].display_name
@@ -66,7 +62,7 @@ resource "azuread_application_password" "application_password" {
 
 /** Service Principal */
 resource "azuread_service_principal" "service_principal" {
-  for_each = local.service_principal
+  for_each = var.service_principal
 
   application_id               = local.service_principal[each.key].application_id
   account_enabled              = local.service_principal[each.key].account_enabled
@@ -76,7 +72,7 @@ resource "azuread_service_principal" "service_principal" {
 }
 /** Service Principal Password*/
 resource "azuread_service_principal_password" "service_principal_password" {
-  for_each = local.service_principal_password
+  for_each = var.service_principal_password
 
   service_principal_id = local.service_principal_password[each.key].service_principal_id
   rotate_when_changed = {
@@ -86,7 +82,7 @@ resource "azuread_service_principal_password" "service_principal_password" {
 
 /** Role Assignment*/
 resource "azurerm_role_assignment" "role_assignment" {
-  for_each = local.role_assignment
+  for_each = var.role_assignment
 
   scope                = local.role_assignment[each.key].scope
   role_definition_name = local.role_assignment[each.key].role_definition_name
