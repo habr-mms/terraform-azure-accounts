@@ -1,16 +1,16 @@
 module "accounts" {
-  source      = "../modules/azure/terraform-accounts"
+  source = "../modules/azure/terraform-accounts"
   application = {
     azuredevops = {
       display_name = "azuredevops"
-      owners = data.azuread_group.grp-admin.members
+      owners       = data.azuread_group.grp-admin.members
     }
   }
   service_principal = {
     azuredevops = {
       application_id = module.accounts.application.azuredevops.application_id
       description    = format("service-principal for %s", "azuredevops")
-      owners = data.azuread_group.grp-admin.members
+      owners         = data.azuread_group.grp-admin.members
     }
   }
   service_principal_password = {
@@ -21,11 +21,11 @@ module "accounts" {
   }
   key_vault_secret = {
     azuredevops = {
-      name = "azuredevops"
+      name         = "azuredevops"
       key_vault_id = "service-mgmt-kv"
       value        = module.accounts.service_principal_password.azuredevops.value
       content_type = format("application %s", "azuredevops")
-      tags         = {
+      tags = {
         service = "service_name"
       }
     }
