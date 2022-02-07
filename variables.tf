@@ -1,9 +1,3 @@
-variable "tags" {
-  type        = any
-  default     = {}
-  description = "mapping of tags to assign, default settings are defined within locals and merged with var settings"
-}
-# resource definition/configuration
 variable "key_vault_secret" {
   type        = any
   default     = {}
@@ -47,9 +41,9 @@ variable "role_assignment" {
 
 locals {
   default = {
-    tags = {}
     # resource definition
     key_vault_secret = {
+      name = ""
       content_type = ""
     }
     user = {
@@ -90,48 +84,38 @@ locals {
     }
   }
 
-  # merge custom and default values
-  tags = merge(local.default.tags, var.tags)
-
-  # deep merge over merged config and use defaults if no variable is set
+  # compare and merge custom and default values
+  # merge all custom and default values
   key_vault_secret = {
-    # get all config
-    for config in keys(var.key_vault_secret) :
-    config => merge(local.default.key_vault_secret, var.key_vault_secret[config])
+    for key_vault_secret in keys(var.key_vault_secret) :
+    key_vault_secret => merge(local.default.key_vault_secret, var.key_vault_secret[key_vault_secret])
   }
   user = {
-    # get all config
-    for config in keys(var.user) :
-    config => merge(local.default.user, var.user[config])
+    for user in keys(var.user) :
+    user => merge(local.default.user, var.user[user])
   }
   group = {
-    # get all config
-    for config in keys(var.group) :
-    config => merge(local.default.group, var.group[config])
+    for group in keys(var.group) :
+    group => merge(local.default.group, var.group[group])
   }
   application = {
-    # get all config
-    for config in keys(var.application) :
-    config => merge(local.default.application, var.application[config])
+    for application in keys(var.application) :
+    application => merge(local.default.application, var.application[application])
   }
   application_password = {
-    # get all config
-    for config in keys(var.application_password) :
-    config => merge(local.default.application_password, var.application_password[config])
+    for application_password in keys(var.application_password) :
+    application_password => merge(local.default.application_password, var.application_password[application_password])
   }
   service_principal = {
-    # get all config
-    for config in keys(var.service_principal) :
-    config => merge(local.default.service_principal, var.service_principal[config])
+    for service_principal in keys(var.service_principal) :
+    service_principal => merge(local.default.service_principal, var.service_principal[service_principal])
   }
   service_principal_password = {
-    # get all config
-    for config in keys(var.service_principal_password) :
-    config => merge(local.default.service_principal_password, var.service_principal_password[config])
+    for service_principal_password in keys(var.service_principal_password) :
+    service_principal_password => merge(local.default.service_principal_password, var.service_principal_password[service_principal_password])
   }
   role_assignment = {
-    # get all config
-    for config in keys(var.role_assignment) :
-    config => merge(local.default.role_assignment, var.role_assignment[config])
+    for role_assignment in keys(var.role_assignment) :
+    role_assignment => merge(local.default.role_assignment, var.role_assignment[role_assignment])
   }
 }
