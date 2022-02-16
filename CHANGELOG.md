@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.0](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/1.0.0) (2022-02-16)
+
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/0.0.2...1.0.0)
+
+**Merged pull requests:**
+
+- change var behaviour [\#2](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/2) ([michaelamattes](https://github.com/michaelamattes))
+- change variable behaviour [\#1](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/1) ([michaelamattes](https://github.com/michaelamattes))
+
 ## [0.0.2](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/0.0.2) (2021-12-20)
 
 [Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/0.0.1...0.0.2)
