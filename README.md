@@ -61,7 +61,7 @@ This module manages Azure AD Resources and Permissions.
 
 ```hcl
 module "accounts" {
-  source = "T-Systems-MMS/accounts/azure"
+  source = "registry.terraform.io/T-Systems-MMS/accounts/azure"
   application = {
     azuredevops = {
       display_name = "azuredevops"
