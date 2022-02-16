@@ -1,12 +1,12 @@
 # Changelog
 
-## [0.0.2](https://github.com/T-Systems-MMS/terraform-accounts/tree/0.0.2) (2021-12-20)
+## [0.0.2](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/0.0.2) (2021-12-20)
 
-[Full Changelog](https://github.com/T-Systems-MMS/terraform-accounts/compare/0.0.1...0.0.2)
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/0.0.1...0.0.2)
 
-## [0.0.1](https://github.com/T-Systems-MMS/terraform-accounts/tree/0.0.1) (2021-12-20)
+## [0.0.1](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/0.0.1) (2021-12-20)
 
-[Full Changelog](https://github.com/T-Systems-MMS/terraform-accounts/compare/cd47d8407c807962846467e2a5eea1332ef804c2...0.0.1)
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/cd47d8407c807962846467e2a5eea1332ef804c2...0.0.1)
 
 
 
