@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/1.0.1) (2022-02-16)
+
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/1.0.0...1.0.1)
+
+**Merged pull requests:**
+
+- change workflow for terraform [\#3](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/3) ([michaelamattes](https://github.com/michaelamattes))
+
 ## [1.0.0](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/1.0.0) (2022-02-16)
 
 [Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/0.0.2...1.0.0)
@@ -11,11 +19,7 @@
 
 ## [0.0.2](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/0.0.2) (2021-12-20)
 
-[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/0.0.1...0.0.2)
-
-## [0.0.1](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/0.0.1) (2021-12-20)
-
-[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/cd47d8407c807962846467e2a5eea1332ef804c2...0.0.1)
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/cd47d8407c807962846467e2a5eea1332ef804c2...0.0.2)
 
 
 
