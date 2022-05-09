@@ -10,15 +10,15 @@ This module manages Azure AD Resources and Permissions.
 | Name | Version |
 |------|---------|
 | terraform | ~>1.0 |
-| azuread | ~>2.5 |
-| azurerm | ~>2.19 |
+| azuread | >=2.5 |
+| azurerm | >=2.19 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| azuread | ~>2.5 |
-| azurerm | ~>2.19 |
+| azuread | >=2.5 |
+| azurerm | >=2.19 |
 
 ## Resources
 
