@@ -1,9 +1,22 @@
+output "key_vault_secret" {
+  description = "azurerm_key_vault_secret results"
+  value = {
+    for key_vault_secret in keys(azurerm_key_vault_secret.key_vault_secret) :
+    key_vault_secret => {
+      name  = azurerm_key_vault_secret.key_vault_secret[key_vault_secret].name
+      value = azurerm_key_vault_secret.key_vault_secret[key_vault_secret].value
+    }
+  }
+}
+
 output "user" {
   description = "azuread_user results"
   value = {
     for user in keys(azuread_user.user) :
     user => {
-      id = azuread_user.user[user].id
+      id                  = azuread_user.user[user].id
+      display_name        = azuread_user.user[user].display_name
+      user_principal_name = azuread_user.user[user].user_principal_name
     }
   }
 }
@@ -13,7 +26,8 @@ output "group" {
   value = {
     for group in keys(azuread_group.group) :
     group => {
-      id = azuread_group.group[group].id
+      id           = azuread_group.group[group].id
+      display_name = azuread_group.group[group].display_name
     }
   }
 }
@@ -34,8 +48,9 @@ output "application_password" {
   value = {
     for application_password in keys(azuread_application_password.application_password) :
     application_password => {
-      key_id = azuread_application_password.application_password[application_password].key_id
-      value  = azuread_application_password.application_password[application_password].value
+      display_name = azuread_application_password.application_password[application_password].display_name
+      key_id       = azuread_application_password.application_password[application_password].key_id
+      value        = azuread_application_password.application_password[application_password].value
     }
   }
 }

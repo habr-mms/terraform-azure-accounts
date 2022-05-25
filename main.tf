@@ -9,82 +9,184 @@
 resource "azurerm_key_vault_secret" "key_vault_secret" {
   for_each = var.key_vault_secret
 
-  name         = local.key_vault_secret[each.key].name == "" ? each.key : local.key_vault_secret[each.key].name
-  value        = local.key_vault_secret[each.key].value
-  key_vault_id = local.key_vault_secret[each.key].key_vault_id
-  content_type = local.key_vault_secret[each.key].content_type
-  tags         = local.key_vault_secret[each.key].tags
+  name            = local.key_vault_secret[each.key].name == "" ? each.key : local.key_vault_secret[each.key].name
+  value           = local.key_vault_secret[each.key].value
+  key_vault_id    = local.key_vault_secret[each.key].key_vault_id
+  content_type    = local.key_vault_secret[each.key].content_type
+  not_before_date = local.key_vault_secret[each.key].not_before_date
+  expiration_date = local.key_vault_secret[each.key].expiration_date
+  tags            = local.key_vault_secret[each.key].tags
 }
 
 /** User */
 resource "azuread_user" "user" {
   for_each = var.user
 
-  user_principal_name   = local.user[each.key].user_principal_name
-  display_name          = local.user[each.key].display_name
-  account_enabled       = local.user[each.key].account_enabled
-  mail_nickname         = local.user[each.key].mail_nickname
-  password              = local.user[each.key].password
-  force_password_change = local.user[each.key].force_password_change
-  show_in_address_list  = local.user[each.key].show_in_address_list
+  account_enabled             = local.user[each.key].account_enabled
+  age_group                   = local.user[each.key].age_group
+  business_phones             = local.user[each.key].business_phones
+  city                        = local.user[each.key].city
+  company_name                = local.user[each.key].company_name
+  consent_provided_for_minor  = local.user[each.key].consent_provided_for_minor
+  cost_center                 = local.user[each.key].cost_center
+  country                     = local.user[each.key].country
+  department                  = local.user[each.key].department
+  disable_password_expiration = local.user[each.key].disable_password_expiration
+  disable_strong_password     = local.user[each.key].disable_strong_password
+  display_name                = local.user[each.key].display_name == "" ? each.key : local.user[each.key].display_name
+  division                    = local.user[each.key].division
+  employee_id                 = local.user[each.key].employee_id
+  employee_type               = local.user[each.key].employee_type
+  fax_number                  = local.user[each.key].fax_number
+  force_password_change       = local.user[each.key].force_password_change
+  given_name                  = local.user[each.key].given_name
+  job_title                   = local.user[each.key].job_title
+  mail                        = local.user[each.key].mail
+  mail_nickname               = local.user[each.key].mail_nickname
+  manager_id                  = local.user[each.key].manager_id
+  mobile_phone                = local.user[each.key].mobile_phone
+  office_location             = local.user[each.key].office_location
+  onpremises_immutable_id     = local.user[each.key].onpremises_immutable_id
+  other_mails                 = local.user[each.key].other_mails
+  password                    = local.user[each.key].password
+  postal_code                 = local.user[each.key].postal_code
+  preferred_language          = local.user[each.key].preferred_language
+  show_in_address_list        = local.user[each.key].show_in_address_list
+  state                       = local.user[each.key].state
+  street_address              = local.user[each.key].street_address
+  surname                     = local.user[each.key].surname
+  usage_location              = local.user[each.key].usage_location
+  user_principal_name         = replace(replace(replace(local.user[each.key].user_principal_name, "ü", "ue"), "ö", "oe"), "ä", "ae")
 }
 
 /** Group */
 resource "azuread_group" "group" {
   for_each = var.group
 
-  display_name            = local.group[each.key].display_name
-  description             = local.group[each.key].description
-  assignable_to_role      = local.group[each.key].assignable_to_role
-  members                 = local.group[each.key].members
-  owners                  = local.group[each.key].owners
-  prevent_duplicate_names = local.group[each.key].prevent_duplicate_names
-  security_enabled        = local.group[each.key].security_enabled
-  mail_enabled            = local.group[each.key].mail_enabled
+  assignable_to_role         = local.group[each.key].assignable_to_role
+  auto_subscribe_new_members = local.group[each.key].auto_subscribe_new_members
+  behaviors                  = local.group[each.key].behaviors
+  description                = local.group[each.key].description
+  display_name               = local.group[each.key].display_name == "" ? each.key : local.group[each.key].display_name
+  external_senders_allowed   = local.group[each.key].external_senders_allowed
+  hide_from_address_lists    = local.group[each.key].hide_from_address_lists
+  hide_from_outlook_clients  = local.group[each.key].hide_from_outlook_clients
+  mail_enabled               = local.group[each.key].mail_enabled
+  mail_nickname              = local.group[each.key].mail_nickname
+  members                    = local.group[each.key].members
+  owners                     = local.group[each.key].owners
+  prevent_duplicate_names    = local.group[each.key].prevent_duplicate_names
+  provisioning_options       = local.group[each.key].provisioning_options
+  security_enabled           = local.group[each.key].security_enabled
+  theme                      = local.group[each.key].theme
+  types                      = local.group[each.key].types
+  visibility                 = local.group[each.key].visibility
+
+  dynamic "dynamic_membership" {
+    for_each = local.group[each.key].dynamic_membership.rule != "" ? [1] : []
+
+    content {
+      enabled = local.group[each.key].dynamic_membership.enabled
+      rule    = local.group[each.key].dynamic_membership.rule
+    }
+  }
 }
 
 /** App Registration */
 resource "azuread_application" "application" {
-  for_each = var.application
+  for_each                       = var.application
+  device_only_auth_enabled       = local.application[each.key].device_only_auth_enabled
+  display_name                   = local.application[each.key].display_name == "" ? each.key : local.application[each.key].display_name
+  fallback_public_client_enabled = local.application[each.key].fallback_public_client_enabled
+  group_membership_claims        = local.application[each.key].group_membership_claims
+  identifier_uris                = local.application[each.key].identifier_uris
+  logo_image                     = local.application[each.key].logo_image
+  marketing_url                  = local.application[each.key].marketing_url
+  oauth2_post_response_required  = local.application[each.key].oauth2_post_response_required
+  owners                         = local.application[each.key].owners
+  prevent_duplicate_names        = local.application[each.key].prevent_duplicate_names
+  privacy_statement_url          = local.application[each.key].privacy_statement_url
+  sign_in_audience               = local.application[each.key].sign_in_audience
+  support_url                    = local.application[each.key].support_url
+  template_id                    = local.application[each.key].template_id
+  terms_of_service_url           = local.application[each.key].terms_of_service_url
 
-  display_name            = local.application[each.key].display_name
-  owners                  = local.application[each.key].owners
-  prevent_duplicate_names = local.application[each.key].prevent_duplicate_names
+  tags = local.application[each.key].tags
 }
+
 /** Application Password */
 resource "azuread_application_password" "application_password" {
   for_each = var.application_password
 
   application_object_id = local.application_password[each.key].application_object_id
-  display_name          = local.application_password[each.key].display_name
+  display_name          = local.application_password[each.key].display_name == "" ? each.key : local.application_password[each.key].display_name
   end_date              = local.application_password[each.key].end_date
+  end_date_relative     = local.application_password[each.key].end_date_relative
+  rotate_when_changed   = local.application_password[each.key].rotate_when_changed
+  start_date            = local.application_password[each.key].start_date
 }
 
 /** Service Principal */
 resource "azuread_service_principal" "service_principal" {
   for_each = var.service_principal
 
-  application_id               = local.service_principal[each.key].application_id
-  account_enabled              = local.service_principal[each.key].account_enabled
-  app_role_assignment_required = local.service_principal[each.key].app_role_assignment_required
-  description                  = local.service_principal[each.key].description
-  owners                       = local.service_principal[each.key].owners
+  account_enabled               = local.service_principal[each.key].account_enabled
+  alternative_names             = local.service_principal[each.key].alternative_names
+  app_role_assignment_required  = local.service_principal[each.key].app_role_assignment_required
+  application_id                = local.service_principal[each.key].application_id
+  description                   = local.service_principal[each.key].description
+  login_url                     = local.service_principal[each.key].login_url
+  notes                         = local.service_principal[each.key].notes
+  notification_email_addresses  = local.service_principal[each.key].notification_email_addresses
+  owners                        = local.service_principal[each.key].owners
+  preferred_single_sign_on_mode = local.service_principal[each.key].preferred_single_sign_on_mode
+  use_existing                  = local.service_principal[each.key].use_existing
+
+  dynamic "feature_tags" {
+    for_each = distinct(values(local.service_principal[each.key].feature_tags)) != false ? [1] : []
+
+    content {
+      custom_single_sign_on = local.service_principal[each.key].feature_tags.custom_single_sign_on
+      enterprise            = local.service_principal[each.key].feature_tags.enterprise
+      gallery               = local.service_principal[each.key].feature_tags.gallery
+      hide                  = local.service_principal[each.key].feature_tags.hide
+    }
+  }
+
+  dynamic "saml_single_sign_on" {
+    for_each = local.service_principal[each.key].saml_single_sign_on.relay_state != null ? [1] : []
+
+    content {
+      relay_state = local.service_principal[each.key].saml_single_sign_on.relay_state
+    }
+  }
+
+  tags = local.service_principal[each.key].tags
 }
 /** Service Principal Password*/
 resource "azuread_service_principal_password" "service_principal_password" {
   for_each = var.service_principal_password
 
+  display_name         = local.service_principal_password[each.key].display_name == "" ? each.key : local.service_principal_password[each.key].display_name
+  end_date             = local.service_principal_password[each.key].end_date
+  end_date_relative    = local.service_principal_password[each.key].end_date_relative
+  rotate_when_changed  = local.service_principal_password[each.key].rotate_when_changed
   service_principal_id = local.service_principal_password[each.key].service_principal_id
-  rotate_when_changed = {
-    rotation = local.service_principal_password[each.key].rotation
-  }
+  start_date           = local.service_principal_password[each.key].start_date
 }
 
 /** Role Assignment*/
 resource "azurerm_role_assignment" "role_assignment" {
   for_each = var.role_assignment
 
-  scope                = local.role_assignment[each.key].scope
-  role_definition_name = local.role_assignment[each.key].role_definition_name
-  principal_id         = local.role_assignment[each.key].principal_id
+  name                                   = local.role_assignment[each.key].name
+  scope                                  = local.role_assignment[each.key].scope
+  role_definition_name                   = local.role_assignment[each.key].role_definition_name
+  role_definition_id                     = local.role_assignment[each.key].role_definition_id
+  principal_id                           = local.role_assignment[each.key].principal_id
+  condition                              = local.role_assignment[each.key].condition
+  condition_version                      = local.role_assignment[each.key].condition_version
+  delegated_managed_identity_resource_id = local.role_assignment[each.key].delegated_managed_identity_resource_id
+  description                            = local.role_assignment[each.key].description
+  skip_service_principal_aad_check       = local.role_assignment[each.key].skip_service_principal_aad_check
 }
