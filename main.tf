@@ -143,7 +143,7 @@ resource "azuread_service_principal" "service_principal" {
   use_existing                  = local.service_principal[each.key].use_existing
 
   dynamic "feature_tags" {
-    for_each = distinct(values(local.service_principal[each.key].feature_tags)) != false ? [1] : []
+    for_each = local.service_principal[each.key].feature_tags != null ? [1] : []
 
     content {
       custom_single_sign_on = local.service_principal[each.key].feature_tags.custom_single_sign_on

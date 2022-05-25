@@ -47,6 +47,7 @@ locals {
       content_type    = null
       not_before_date = null
       expiration_date = null
+      tags = {}
     }
     user = {
       account_enabled             = true
@@ -132,7 +133,7 @@ locals {
       required_resource_access       = {}
       single_page_application        = {}
       web                            = {}
-      tags                           = {}
+      tags                           = null
     }
     application_password = {
       display_name        = ""
@@ -152,16 +153,11 @@ locals {
       owners                        = null
       preferred_single_sign_on_mode = null
       use_existing                  = null
-      feature_tags = {
-        custom_single_sign_on = false
-        enterprise            = false
-        gallery               = false
-        hide                  = false
-      }
+      feature_tags = null
       saml_single_sign_on = {
         relay_state = null
       }
-      tags = {}
+      tags = null
     }
     service_principal_password = {
       display_name        = ""
