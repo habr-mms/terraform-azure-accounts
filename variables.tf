@@ -13,6 +13,11 @@ variable "group" {
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
+variable "group_member" {
+  type        = any
+  default     = {}
+  description = "resource definition, default settings are defined within locals and merged with var settings"
+}
 variable "application" {
   type        = any
   default     = {}
@@ -109,6 +114,7 @@ locals {
         rule    = ""
       }
     }
+    group_member = {}
     application = {
       device_only_auth_enabled       = false
       display_name                   = ""
@@ -201,6 +207,10 @@ locals {
         config => merge(local.default.group[config], local.group_values[group][config])
       }
     )
+  }
+  group_member = {
+    for group_member in keys(var.group_member) :
+    group_member => merge(local.default.group_member, var.group_member[group_member])
   }
   application = {
     for application in keys(var.application) :

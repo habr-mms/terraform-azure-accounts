@@ -92,6 +92,14 @@ resource "azuread_group" "group" {
   }
 }
 
+/** Group */
+resource "azuread_group_member" "group_member" {
+  for_each = var.group_member
+
+  group_object_id  = local.group_member[each.key].group_object_id
+  member_object_id = local.group_member[each.key].member_object_id
+}
+
 /** App Registration */
 resource "azuread_application" "application" {
   for_each                       = var.application
