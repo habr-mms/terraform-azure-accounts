@@ -189,6 +189,11 @@ locals {
     for group in keys(var.group) :
     group => merge(local.default.group, var.group[group])
   }
+  application_values = {
+    for application in keys(var.application) :
+    application => merge(local.default.application, var.application[application])
+  }
+
   # merge all custom and default values
   key_vault_secret = {
     for key_vault_secret in keys(var.key_vault_secret) :
@@ -214,7 +219,16 @@ locals {
   }
   application = {
     for application in keys(var.application) :
-    application => merge(local.default.application, var.application[application])
+    application => merge(
+      local.application_values[application],
+      {
+        for config in ["required_resource_access"] :
+        config => {
+          for key in keys(local.application_values[application][config]) :
+          key => merge(local.default.application[config], local.application_values[application][config][key])
+        }
+      },
+    )
   }
   application_password = {
     for application_password in keys(var.application_password) :

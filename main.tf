@@ -103,6 +103,7 @@ resource "azuread_group_member" "group_member" {
 /** App Registration */
 resource "azuread_application" "application" {
   for_each                       = var.application
+
   device_only_auth_enabled       = local.application[each.key].device_only_auth_enabled
   display_name                   = local.application[each.key].display_name == "" ? each.key : local.application[each.key].display_name
   fallback_public_client_enabled = local.application[each.key].fallback_public_client_enabled
@@ -118,6 +119,71 @@ resource "azuread_application" "application" {
   support_url                    = local.application[each.key].support_url
   template_id                    = local.application[each.key].template_id
   terms_of_service_url           = local.application[each.key].terms_of_service_url
+
+  # dynamic "api" {
+  #   for_each =
+
+  #   content {
+  #   }
+  # }
+
+  # dynamic "app_role" {
+  #   for_each =
+
+  #   content {
+  #   }
+  # }
+
+  # dynamic "feature_tags" {
+  #   for_each =
+
+  #   content {
+  #   }
+  # }
+
+  # dynamic "optional_claims" {
+  #   for_each =
+
+  #   content {
+  #   }
+  # }
+
+  # dynamic "public_client" {
+  #   for_each =
+
+  #   content {
+  #   }
+  # }
+
+  dynamic "required_resource_access" {
+    for_each = local.application[each.key].required_resource_access
+
+    content {
+      resource_app_id = local.application[each.key].required_resource_access[required_resource_access.key].resource_app_id
+
+      dynamic "resource_access" {
+        for_each = local.application[each.key].required_resource_access[required_resource_access.key].resource_access
+
+        content {
+          id   = local.application[each.key].required_resource_access[required_resource_access.key].resource_access[resource_access.key].id
+          type = local.application[each.key].required_resource_access[required_resource_access.key].resource_access[resource_access.key].type
+        }
+      }
+    }
+  }
+
+  # dynamic "single_page_application" {
+  #   for_each =
+
+  #   content {
+  #   }
+  # }
+  # dynamic "web" {
+  #   for_each =
+
+  #   content {
+  #   }
+  # }
 
   tags = local.application[each.key].tags
 }
