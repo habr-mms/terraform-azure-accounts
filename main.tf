@@ -120,41 +120,6 @@ resource "azuread_application" "application" {
   template_id                    = local.application[each.key].template_id
   terms_of_service_url           = local.application[each.key].terms_of_service_url
 
-  # dynamic "api" {
-  #   for_each =
-
-  #   content {
-  #   }
-  # }
-
-  # dynamic "app_role" {
-  #   for_each =
-
-  #   content {
-  #   }
-  # }
-
-  # dynamic "feature_tags" {
-  #   for_each =
-
-  #   content {
-  #   }
-  # }
-
-  # dynamic "optional_claims" {
-  #   for_each =
-
-  #   content {
-  #   }
-  # }
-
-  # dynamic "public_client" {
-  #   for_each =
-
-  #   content {
-  #   }
-  # }
-
   dynamic "required_resource_access" {
     for_each = local.application[each.key].required_resource_access
 
@@ -171,19 +136,6 @@ resource "azuread_application" "application" {
       }
     }
   }
-
-  # dynamic "single_page_application" {
-  #   for_each =
-
-  #   content {
-  #   }
-  # }
-  # dynamic "web" {
-  #   for_each =
-
-  #   content {
-  #   }
-  # }
 
   tags = local.application[each.key].tags
 }
