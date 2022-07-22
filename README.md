@@ -9,16 +9,16 @@ This module manages Azure AD Resources and Permissions.
 
 | Name | Version |
 |------|---------|
-| terraform | ~>1.0 |
-| azuread | >=2.5 |
-| azurerm | >=2.19 |
+| terraform | >=1.0 |
+| azuread | >=2.22 |
+| azurerm | >=3.6 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| azuread | >=2.5 |
-| azurerm | >=2.19 |
+| azuread | >=2.22 |
+| azurerm | >=3.6 |
 
 ## Resources
 
@@ -27,6 +27,7 @@ This module manages Azure AD Resources and Permissions.
 | azuread_application.application | resource |
 | azuread_application_password.application_password | resource |
 | azuread_group.group | resource |
+| azuread_group_member.group_member | resource |
 | azuread_service_principal.service_principal | resource |
 | azuread_service_principal_password.service_principal_password | resource |
 | azuread_user.user | resource |
@@ -40,6 +41,7 @@ This module manages Azure AD Resources and Permissions.
 | application | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | application_password | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | group | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
+| group_member | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | key_vault_secret | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | role_assignment | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
 | service_principal | resource definition, default settings are defined within locals and merged with var settings | `any` | `{}` | no |
@@ -53,6 +55,7 @@ This module manages Azure AD Resources and Permissions.
 | application | azuread_application results |
 | application_password | azuread_application_password results |
 | group | azuread_group results |
+| key_vault_secret | azurerm_key_vault_secret results |
 | service_principal | azuread_service_principal results |
 | service_principal_password | azuread_service_principal_password results |
 | user | azuread_user results |

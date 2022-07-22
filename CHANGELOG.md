@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.2](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/1.0.2) (2022-05-09)
+
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/1.0.1...1.0.2)
+
+**Implemented enhancements:**
+
+- change versions dependencies [\#4](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/4) ([michaelamattes](https://github.com/michaelamattes))
+
+**Merged pull requests:**
+
+- Update hashicorp/setup-terraform action to v2 [\#13](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/13) ([renovate[bot]](https://github.com/apps/renovate))
+- Update github-actions-x/commit action to v2.9 [\#9](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/9) ([renovate[bot]](https://github.com/apps/renovate))
+- Update creyD/prettier\_action action to v3.3 [\#7](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/7) ([renovate[bot]](https://github.com/apps/renovate))
+- Update actions/checkout action to v2.4.2 [\#6](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/6) ([renovate[bot]](https://github.com/apps/renovate))
+- add renovate config [\#5](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/5) ([michaelamattes](https://github.com/michaelamattes))
+
 ## [1.0.1](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/1.0.1) (2022-02-16)
 
 [Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/1.0.0...1.0.1)
