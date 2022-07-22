@@ -102,7 +102,7 @@ resource "azuread_group_member" "group_member" {
 
 /** App Registration */
 resource "azuread_application" "application" {
-  for_each                       = var.application
+  for_each = var.application
 
   device_only_auth_enabled       = local.application[each.key].device_only_auth_enabled
   display_name                   = local.application[each.key].display_name == "" ? each.key : local.application[each.key].display_name

@@ -52,7 +52,7 @@ locals {
       content_type    = null
       not_before_date = null
       expiration_date = null
-      tags = {}
+      tags            = {}
     }
     user = {
       account_enabled             = true
@@ -159,7 +159,7 @@ locals {
       owners                        = null
       preferred_single_sign_on_mode = null
       use_existing                  = null
-      feature_tags = null
+      feature_tags                  = null
       saml_single_sign_on = {
         relay_state = null
       }
