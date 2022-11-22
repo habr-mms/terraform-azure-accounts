@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.0](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/2.0.0) (2022-07-22)
+
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/1.0.2...2.0.0)
+
+**Merged pull requests:**
+
+- Azurerm 3x azuread 2.22 [\#14](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/14) ([michaelamattes](https://github.com/michaelamattes))
+- Update creyD/prettier\_action action to v4 [\#12](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/12) ([renovate[bot]](https://github.com/apps/renovate))
+- Update actions/checkout action [\#11](https://github.com/T-Systems-MMS/terraform-azure-accounts/pull/11) ([renovate[bot]](https://github.com/apps/renovate))
+
 ## [1.0.2](https://github.com/T-Systems-MMS/terraform-azure-accounts/tree/1.0.2) (2022-05-09)
 
 [Full Changelog](https://github.com/T-Systems-MMS/terraform-azure-accounts/compare/1.0.1...1.0.2)
