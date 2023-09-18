@@ -78,3 +78,66 @@ output "service_principal_password" {
     }
   }
 }
+
+output "user_assigned_identity" {
+  description = "Outputs all attributes of resource_type."
+  value = {
+    for user_assigned_identity in keys(azurerm_user_assigned_identity.user_assigned_identity) :
+    user_assigned_identity => {
+      for key, value in azurerm_user_assigned_identity.user_assigned_identity[user_assigned_identity] :
+      key => value
+    }
+  }
+}
+
+output "variables" {
+  description = "Displays all configurable variables passed by the module. __default__ = predefined values per module. __merged__ = result of merging the default values and custom values passed to the module"
+  value = {
+    default = {
+      for variable in keys(local.default) :
+      variable => local.default[variable]
+    }
+    merged = {
+      key_vault_secret = {
+        for key in keys(var.key_vault_secret) :
+        key => local.key_vault_secret[key]
+      }
+      user = {
+        for key in keys(var.user) :
+        key => local.user[key]
+      }
+      group = {
+        for key in keys(var.group) :
+        key => local.group[key]
+      }
+      group_member	 = {
+        for key in keys(var.group_member) :
+        key => local.group_member[key]
+      }
+      application = {
+        for key in keys(var.application) :
+        key => local.application[key]
+      }
+      application_password = {
+        for key in keys(var.application_password) :
+        key => local.application_password[key]
+      }
+      service_principal = {
+        for key in keys(var.service_principal) :
+        key => local.service_principal[key]
+      }
+      service_principal_password = {
+        for key in keys(var.service_principal_password) :
+        key => local.service_principal_password[key]
+      }
+      app_role_assignment = {
+        for key in keys(var.app_role_assignment) :
+        key => local.app_role_assignment[key]
+      }
+      user_assigned_identity = {
+        for key in keys(var.user_assigned_identity) :
+        key => local.user_assigned_identity[key]
+      }
+    }
+  }
+}

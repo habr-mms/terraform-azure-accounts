@@ -201,6 +201,25 @@ resource "azuread_service_principal_password" "service_principal_password" {
   start_date           = local.service_principal_password[each.key].start_date
 }
 
+/** app role assignment */
+resource "azuread_app_role_assignment" "app_role_assignment" {
+  for_each = var.app_role_assignment
+
+  app_role_id = local.app_role_assignment[each.key].app_role_id
+  principal_object_id = local.app_role_assignment[each.key].principal_object_id
+  resource_object_id = local.app_role_assignment[each.key].resource_object_id
+}
+
+/** user assigned identity */
+resource "azurerm_user_assigned_identity" "user_assigned_identity" {
+  for_each = var.user_assigned_identity
+
+  name = local.user_assigned_identity[each.key].name == "" ? each.key : local.user_assigned_identity[each.key].name
+  location = local.user_assigned_identity[each.key].location
+  resource_group_name = local.user_assigned_identity[each.key].resource_group_name
+  tags = local.user_assigned_identity[each.key].tags
+}
+
 /** Role Assignment*/
 resource "azurerm_role_assignment" "role_assignment" {
   for_each = var.role_assignment
