@@ -38,6 +38,16 @@ variable "service_principal_password" {
   default     = {}
   description = "resource definition, default settings are defined within locals and merged with var settings"
 }
+variable "app_role_assignment" {
+  type        = any
+  default     = {}
+  description = "resource definition, default settings are defined within locals and merged with var settings"
+}
+variable "user_assigned_identity" {
+  type        = any
+  default     = {}
+  description = "resource definition, default settings are defined within locals and merged with var settings"
+}
 variable "role_assignment" {
   type        = any
   default     = {}
@@ -172,6 +182,13 @@ locals {
       rotate_when_changed = null
       start_date          = null
     }
+    app_role_assignment = {
+      app_role_id = "00000000-0000-0000-0000-000000000000"
+    }
+    user_assigned_identity = {
+      name = ""
+      tags = {}
+    }
     role_assignment = {
       name                                   = null
       role_definition_name                   = null
@@ -241,6 +258,14 @@ locals {
   service_principal_password = {
     for service_principal_password in keys(var.service_principal_password) :
     service_principal_password => merge(local.default.service_principal_password, var.service_principal_password[service_principal_password])
+  }
+  app_role_assignment = {
+    for app_role_assignment in keys(var.app_role_assignment) :
+    app_role_assignment => merge(local.default.app_role_assignment, var.app_role_assignment[app_role_assignment])
+  }
+  user_assigned_identity = {
+    for user_assigned_identity in keys(var.user_assigned_identity) :
+    user_assigned_identity => merge(local.default.user_assigned_identity, var.user_assigned_identity[user_assigned_identity])
   }
   role_assignment = {
     for role_assignment in keys(var.role_assignment) :
